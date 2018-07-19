@@ -1,4 +1,3 @@
-{{ form.value | json }}
 <form class="form"
   [formGroup]="form"
   >
@@ -31,51 +30,12 @@
     </div>
   </div>
   <div class="regions">
-    <div class="region"
-      *ngFor="let region of regions"
+    <app-region class="region"
+			*ngFor="let region of regions"
+			[region]="region"
+			[form]="form"
+			[tally]="tally"
       >
-      <img class="region__icon"
-        src="assets/icons/{{region}}.svg"
-        [alt]="region"
-      />
-      <div class="region__icon-cover"
-        *ngIf="!tally[region]"
-      ></div>
-      <section class="region__wrapper">
-        <label class="region__checkbox"
-          [formGroupName]="region"
-          >
-          <input class="region__checkbox-input"
-            #regionInput
-            type="checkbox"
-            [id]="region"
-            [value]="region"
-            formControlName="checked"
-            [indeterminate]="form.value[region].indeterminate"
-            (change)="onRegionChange(regionInput)"
-          />
-          <span class="region__checkbox-element"></span>
-          <span class="region__checkbox-label">
-            {{region}} <span class="bold">({{tally[region]}} / {{countriesByRegion[region].length}})</span>
-          </span>
-        </label>
-        <label class="subregion__checkbox"
-          *ngFor="let subregion of subregionsByRegion[region]"
-          >
-          <input class="subregion__checkbox-input"
-            #subregionInput
-            type="checkbox"
-            [id]="subregion"
-            [value]="subregion"
-            [formControlName]="subregion"
-            (change)="onSubregionChange(regionInput)"
-            />
-          <span class="subregion__checkbox-element"></span>
-          <span class="subregion__checkbox-label">
-            {{subregion}} <span class="bold">({{countriesBySubregion[subregion].length}})</span>
-          </span>
-        </label>
-      </section>
-    </div>
+    </app-region>
   </div>
 </form>

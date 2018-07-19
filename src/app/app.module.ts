@@ -12,6 +12,7 @@ import { QuizMenuComponent } from './quiz/quiz-menu/quiz-menu.component';
 import { SelectComponent } from './select/select.component';
 import { SelectCountryComponent } from './select/select-country/select-country.component';
 import { SelectQuantityComponent } from './select/select-quantity/select-quantity.component';
+import { RegionComponent } from './select/select-country/region/region.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { SelectQuantityComponent } from './select/select-quantity/select-quantit
     QuizMenuComponent,
     SelectComponent,
     SelectCountryComponent,
-    SelectQuantityComponent
+    SelectQuantityComponent,
+    RegionComponent
   ],
   imports: [
     BrowserModule,

@@ -35,15 +35,4 @@ export class SelectCountryComponent extends CountryClass implements OnInit {
     this.form.setValue(updatedFormModel.value);
   }
 
-  onRegionChange(region: HTMLInputElement) {
-    const subregions = this.subregionsByRegion[region.value];
-    const updateToFormModel = this.selectService.createRegionAndSubregionsUpdate(region.value, subregions, region.checked);
-    this.form.patchValue(updateToFormModel);
-  }
-
-  onSubregionChange(region: HTMLInputElement) {
-    const updateToFormModel = this.selectService.createRegionUpdate(this.form, region.value);
-    this.form.patchValue(updateToFormModel);
-  }
-
 }

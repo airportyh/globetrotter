@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import * as _ from 'lodash';
 
-import { Country } from '../shared/model/country.interface';
 import { CountryService } from '../shared/country/country.service';
 import { FormModelUpdate, CountryTally, FormModelObject, IndeterminateStatus } from '../shared/model/select.interface';
 import { CountryClass } from '../shared/country/country.class';
@@ -17,7 +16,7 @@ export class SelectService extends CountryClass {
     private fb: FormBuilder
   ) {
     super(countryService)
-  }
+	}
 
   createCountryForm(initValue: boolean): FormGroup {
     const countryFormModel = this.createFormModelObject(this.regions, this.subregions, initValue);

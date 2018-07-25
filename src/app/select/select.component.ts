@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {
   trigger,
@@ -35,12 +35,9 @@ export class SelectComponent implements OnInit {
   ngOnInit() {
     this.initializeCountryForm();
     this.initializeQuantityModel();
-  }
+	}
 
-  onSubmit(isDisabled: boolean): void {
-    if (isDisabled) {
-      return;
-    }
+  onSubmit(): void {
     const selection: Selection = {
       countryForm: this.countryForm.value,
       quantity: this.quantityModel.quantity

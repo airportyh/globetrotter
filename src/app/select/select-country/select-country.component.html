@@ -4,7 +4,7 @@
   <div class="total">
     <div class="total__tally">
       <span class="total__tally-number">
-        {{tally.total}} / {{totalCountries}}&nbsp;
+        {{tally.total}} / {{data.length}}&nbsp;
       </span>
       <span class="total__tally-words">
         possible countries selected.
@@ -17,7 +17,6 @@
         buttonText="Select all"
         (onClick)="onSelectAll()"
         >
-        Clear all
       </app-button>
       <app-button class="buttons__clear-all"
         buttonStyle="secondary"
@@ -25,53 +24,52 @@
         buttonText="Clear all"
         (onClick)="onClearAll()"
         >
-        Clear all
       </app-button>
     </div>
   </div>
-  <div class="regions">
-    <div class="region"
-      *ngFor="let region of regions"
+  <div class="categories">
+    <div class="category"
+      *ngFor="let category of categories"
       >
-      <img class="region__icon"
-        src="assets/icons/{{region}}.svg"
-        [alt]="region"
+      <img class="category__icon"
+        src="assets/icons/{{category}}.svg"
+        [alt]="category"
       />
-      <div class="region__icon-cover"
-        *ngIf="!tally[region]"
+      <div class="category__icon-cover"
+        *ngIf="!tally[category]"
       ></div>
-      <section class="region__wrapper">
-        <label class="region__checkbox"
-          [formGroupName]="region"
+      <section class="category__wrapper">
+        <label class="category__checkbox"
+          [formGroupName]="category"
           >
-          <input class="region__checkbox-input"
-            #regionInput
+          <input class="category__checkbox-input"
+            #categoryInput
             type="checkbox"
-            [id]="region"
-            [value]="region"
+            [id]="category"
+            [value]="category"
             formControlName="checked"
-            [indeterminate]="form.value[region].indeterminate"
-            (change)="onRegionChange(regionInput)"
+            [indeterminate]="form.value[category].indeterminate"
+            (change)="onCategoryChange(categoryInput)"
           />
-          <span class="region__checkbox-element"></span>
-          <span class="region__checkbox-label">
-            {{region}} <span class="bold">({{tally[region]}} / {{countriesByRegion[region].length}})</span>
+          <span class="category__checkbox-element"></span>
+          <span class="category__checkbox-label">
+            {{category}} <span class="bold">({{tally[category]}} / {{dataByCategory[category].length}})</span>
           </span>
         </label>
-        <label class="subregion__checkbox"
-          *ngFor="let subregion of subregionsByRegion[region]"
+        <label class="subcategory__checkbox"
+          *ngFor="let subcategory of subcategoriesByCategory[category]"
           >
-          <input class="subregion__checkbox-input"
-            #subregionInput
+          <input class="subcategory__checkbox-input"
+            #subcategoryInput
             type="checkbox"
-            [id]="subregion"
-            [value]="subregion"
-            [formControlName]="subregion"
-            (change)="onSubregionChange(regionInput)"
+            [id]="subcategory"
+            [value]="subcategory"
+            [formControlName]="subcategory"
+            (change)="onSubcategoryChange(categoryInput)"
             />
-          <span class="subregion__checkbox-element"></span>
-          <span class="subregion__checkbox-label">
-            {{subregion}} <span class="bold">({{countriesBySubregion[subregion].length}})</span>
+          <span class="subcategory__checkbox-element"></span>
+          <span class="subcategory__checkbox-label">
+            {{subcategory}} <span class="bold">({{dataBySubcategory[subcategory].length}})</span>
           </span>
         </label>
       </section>

@@ -10,8 +10,8 @@ export interface Selection {
 }
 
 export interface IndeterminateStatus {
-  allSubregionsChecked: boolean;
-  allSubregionsUnchecked: boolean;
+  allSubcategoriesChecked: boolean;
+  allSubcategoriesUnchecked: boolean;
 }
 
 

@@ -7,6 +7,8 @@ import {
   transition
 } from '@angular/animations';
 
+import { Country } from 'src/app/shared/model/country.interface';
+import { CountryService } from '../shared/country/country.service';
 import { SelectService } from './select.service';
 
 @Component({
@@ -23,10 +25,15 @@ import { SelectService } from './select.service';
   ]
 })
 export class SelectComponent implements OnInit {
+  public countries: Country[];
 
-  constructor(private selectService: SelectService) { }
+  constructor(
+    private countryService: CountryService,
+    private selectService: SelectService
+  ) { }
 
   ngOnInit() {
+    this.countries = this.countryService.countries;
   }
 
 }

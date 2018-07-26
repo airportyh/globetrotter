@@ -2,6 +2,10 @@
   @fadeIn
   >
   <!-- TODO: figure out how to get the form out of this component when a button is clicked -->
-  <app-select-country>
+  <app-select-country
+    [data]="countries"
+    category="region"
+    subcategory="subregion"
+    >
   </app-select-country>
 </main>

@@ -1,26 +1,18 @@
-import { Injectable, Input } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import * as _ from 'lodash';
 
-import { CountryClass } from '../../shared/country/country.class';
-import { CountryTally, FormModelUpdate, IndeterminateStatus, FormModelObject } from 'src/app/shared/model/select.interface';
-import { CountryService } from 'src/app/shared/country/country.service';
-import { Country } from 'src/app/shared/model/country.interface';
+import { Tally, FormModelUpdate, IndeterminateStatus, FormModelObject } from '../../shared/model/select.interface';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class SelectCountryService extends CountryClass {
+export class NestedCheckboxesService {
 
-  constructor(
-    countryService: CountryService,
-    private fb: FormBuilder
-  ) {
-    super(countryService)
-  }
+  constructor(private fb: FormBuilder) { }
 
-  groupSubcategoriesByCategory(data: Country[], category: string, subcategory: string): _.Dictionary<string[]> {
+  groupSubcategoriesByCategory(data: any[], category: string, subcategory: string): _.Dictionary<string[]> {
     return _.reduce(data, (accum, item) => {
       const itemCategory = item[category];
       const itemSubcategory = item[subcategory];
@@ -39,8 +31,8 @@ export class SelectCountryService extends CountryClass {
     return this.fb.group(formModel);
   }
 
-  createCategoryUpdate(form: FormGroup, category: string): FormModelUpdate {
-    const { allSubcategoriesChecked, allSubcategoriesUnchecked } = this.evaluateIndeterminate(form, category);
+  createCategoryUpdate(form: FormGroup, category: string, subcategories: string[]): FormModelUpdate {
+    const { allSubcategoriesChecked, allSubcategoriesUnchecked } = this.evaluateIndeterminate(form, subcategories);
     const formModelUpdate = {
       [category]: {
         checked: undefined,
@@ -62,35 +54,33 @@ export class SelectCountryService extends CountryClass {
     return formModelUpdate;
   }
 
-  createCategoryAndSubcategoryUpdate(region: string, subregions: string[], isChecked: boolean): FormModelUpdate {
+  createCategoryAndSubcategoryUpdate(category: string, subcategories: string[], isChecked: boolean): FormModelUpdate {
     const formModelUpdate = {};
-    formModelUpdate[region] = { indeterminate: false };
-    _.forEach(subregions, (subregion) => {
-      formModelUpdate[subregion] = isChecked;
+    formModelUpdate[category] = { indeterminate: false };
+    _.forEach(subcategories, (subcategory) => {
+      formModelUpdate[subcategory] = isChecked;
     });
     return formModelUpdate;
   }
 
-  updateTally(form: FormGroup): CountryTally {
+  updateTally(form: FormGroup, dataBySubcategory: _.Dictionary<any[]>, subcategoriesByCategory: _.Dictionary<string[]>): Tally {
     const formModel = form.value;
     const tally = { total: 0 };
-    _.forEach(this.subregionsByRegion, (subregions, region) => {
-      tally[region] = 0;
-      _.forEach(subregions, (subregion) => {
-        if (formModel[subregion]) {
-          const numberOfCountries = this.countriesBySubregion[subregion].length;
-          tally[region] += numberOfCountries;
-          tally.total += numberOfCountries;
+    _.forEach(subcategoriesByCategory, (subcategories, category) => {
+      tally[category] = 0;
+      _.forEach(subcategories, (subcategory) => {
+        if (formModel[subcategory]) {
+          const numberOfItems = dataBySubcategory[subcategory].length;
+          tally[category] += numberOfItems;
+          tally.total += numberOfItems;
         }
       });
     });
     return tally;
   }
 
-  private evaluateIndeterminate(form: FormGroup, region: string): IndeterminateStatus {
+  private evaluateIndeterminate(form: FormGroup, subcategories: string[]): IndeterminateStatus {
     const formModel = form.value;
-    // TODO: remove the dependency to this.subregionsByRegion from this service
-    const subcategories = this.subregionsByRegion[region];
     const allSubcategoriesChecked = subcategories.every((subcategory) => {
       return formModel[subcategory] === true;
     });
@@ -103,16 +93,16 @@ export class SelectCountryService extends CountryClass {
     };
   }
 
-  private createFormModelObject(regions: string[], subregions: string[], isChecked: boolean): FormModelObject {
+  private createFormModelObject(categories: string[], subcategories: string[], isChecked: boolean): FormModelObject {
     const formModelObject = {};
-    _.forEach(regions, (region) => {
-      formModelObject[region] = this.fb.group({
+    _.forEach(categories, (category) => {
+      formModelObject[category] = this.fb.group({
         checked: isChecked,
         indeterminate: false
       })
     });
-    _.forEach(subregions, (subregion) => {
-      formModelObject[subregion] = isChecked;
+    _.forEach(subcategories, (subcategory) => {
+      formModelObject[subcategory] = isChecked;
     });
     return formModelObject;
   }

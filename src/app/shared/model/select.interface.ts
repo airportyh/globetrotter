@@ -19,7 +19,7 @@ export interface IndeterminateStatus {
 // SELECT-COUNTRY
 // ==================
 
-export type CountryTally = _.Dictionary<number>;
+export type Tally = _.Dictionary<number>;
 
 export type RegionModel = {
   checked: boolean | null;

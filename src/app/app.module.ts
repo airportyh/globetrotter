@@ -6,14 +6,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { ButtonComponent } from './shared/components/button/button.component';
 import { SelectComponent } from './select/select.component';
-import { SelectCountryComponent } from './select/select-country/select-country.component';
+import { NestedCheckboxesComponent } from './select/nested-checkboxes/nested-checkboxes.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ButtonComponent,
     SelectComponent,
-    SelectCountryComponent,
+    NestedCheckboxesComponent,
   ],
   imports: [
     BrowserModule,

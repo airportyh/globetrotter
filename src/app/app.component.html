@@ -11,8 +11,5 @@
     <app-select *ngIf="!selection"
       (selectionMade)="onSelectionMade($event)"
     ></app-select>
-    <app-quiz *ngIf="selection"
-      [selection]="selection"
-    ></app-quiz>
   </div>
 </main>

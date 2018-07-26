@@ -7,17 +7,5 @@ import { Selection } from './shared/model/select.interface';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  selection: Selection;
 
-  onSelectionMade(selection: Selection) {
-    this.selection = {
-      countryForm: selection.countryForm,
-      quantity: selection.quantity
-    };
-    window.scrollTo(0, 0);
-  }
-
-  reset() {
-    this.selection = null;
-  }
 }

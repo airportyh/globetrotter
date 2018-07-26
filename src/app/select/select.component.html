@@ -1,33 +1,7 @@
 <main class="select"
   @fadeIn
   >
-  <h1 class="header">
-    Globetrotter
-  </h1>
-  <div class="divider">
-    <hr class="divider__line">
-    <img class="divider__icon"
-      src="assets/icons/Globetrotter.svg"
-      alt="Globetrotter logo"
-    />
-  </div>
-  <app-select-quantity
-    [model]="quantityModel"
-    [quantities]="quantities"
-    >
-  </app-select-quantity>
-  <app-select-country
-    [form]="countryForm"
-    [tally]="countryTally"
-    >
+  <!-- TODO: figure out how to get the form out of this component when a button is clicked -->
+  <app-select-country>
   </app-select-country>
-  <app-button class="start"
-    buttonStyle="primary"
-    buttonType="submit"
-    buttonText="Start"
-    buttonSize="huge"
-    [isDisabled]="!countryTally.total"
-    (onClick)="onSubmit(!countryTally.total)"
-    >
-  </app-button>
 </main>
